@@ -1,0 +1,80 @@
+import React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Table, TableHead, TableHeader, TableRow, TableCell, TableBody } from "@/components/ui/table";
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-black text-white px-6 py-10">
+      <header className="mb-10">
+        <h1 className="text-4xl font-bold">notsobullish</h1>
+        <p className="text-gray-400">We track short sellers for you</p>
+        <p className="text-gray-500">Find the latest research and analysis related to short sellers</p>
+      </header>
+
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4">Latest Short Reports</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            { name: "Hindenburg Research", company: "Nikola", date: "April 22, 2024", perf: "-58.2%" },
+            { name: "Citron Research", company: "Tesla", date: "April 20, 2024", perf: "+18.8%" },
+            { name: "Jim Chanos", company: "Wirecard", date: "April 18, 2024", perf: null }
+          ].map((report, idx) => (
+            <Card key={idx} className="bg-zinc-900">
+              <CardContent className="p-4">
+                <h3 className="font-semibold text-lg">{report.name}</h3>
+                <p className="text-sm text-gray-300">{report.company}</p>
+                <p className="text-xs text-gray-500">{report.date}</p>
+                <div className="mt-2 text-sm text-yellow-400">
+                  {report.perf ? `Performance ${report.perf}` : "Read Report"}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4">Trending Shorted Stocks</h2>
+        <div className="flex gap-4">
+          {["Nikola", "Tesla", "Wirecard"].map((stock, idx) => (
+            <Card key={idx} className="bg-zinc-900 p-4 w-32 text-center">
+              <p className="font-medium">{stock}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-semibold mb-4">Leaderboard</h2>
+        <Table className="bg-zinc-900">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Short Seller</TableHead>
+              <TableHead># Reports</TableHead>
+              <TableHead>Accuracy</TableHead>
+              <TableHead>ROI</TableHead>
+              <TableHead>Last Report</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {[
+              { name: "Hindenburg Research", reports: 15, acc: "71%", roi: "34.5%", last: "Apr. 22, 2024" },
+              { name: "Citron Research", reports: 29, acc: "63%", roi: "20.1%", last: "Apr. 20, 2024" },
+              { name: "Chanos", reports: 8, acc: "58%", roi: "16.5%", last: "Apr. 18, 2024" }
+            ].map((item, idx) => (
+              <TableRow key={idx}>
+                <TableCell>{item.name}</TableCell>
+                <TableCell>{item.reports}</TableCell>
+                <TableCell>{item.acc}</TableCell>
+                <TableCell>{item.roi}</TableCell>
+                <TableCell>{item.last}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <Button className="mt-4 bg-zinc-800">View Leaderboard</Button>
+      </section>
+    </main>
+  );
+}
